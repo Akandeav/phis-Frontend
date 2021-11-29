@@ -1,8 +1,12 @@
-# Getting Started with Create React App
+# PHIS Frontend  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
+Each folder contains Readme files describing its' content.  
 
-## Available Scripts
+## Folder details
+Root directory.
+
+## Available Scripts  
 
 In the project directory, you can run:
 
