@@ -24,7 +24,7 @@ import { BsCloudyFill, BsGlobe2 } from 'react-icons/bs'
 import { FaMicroscope } from 'react-icons/fa'
 import { GrUbuntu } from 'react-icons/gr'
 import { SiDell, SiCisco } from 'react-icons/si'
-import logo from "../../assets/img/logo.png"
+import cu from '../../assets/img/cu-g.png'
 import { useCookies } from 'react-cookie'
 import { isExpired } from 'react-jwt'
 import Navbar from '../Navbar/Navbar'
@@ -88,8 +88,8 @@ export default function Header() {
                     <ChevronRightIcon className="ml-2 w-5 h-5 text-gray-500" aria-hidden="true" />
                   </a>
                   <h1 className="mt-4 text-4xl tracking-tight font-extrabold text-gray-900 sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
-                    <span className="md:block">High Performance Computing for</span>{' '}
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-indigo-500 md:block">AI Research </span>
+                    
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-indigo-500 md:block">FEDGEN </span>
                   </h1>
                   <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     A Federated Genomic (FEDGEN) cloud infrastructure (with in-memory conputing and 
@@ -99,7 +99,8 @@ export default function Header() {
                   <div className="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
                     <div className="flex flex-wrap items-start justify-between">
                       <div className="flex justify-center px-1">
-                        <p className="inline-block align-middle font-sans text-2xl font-bold text-gray-400"><GrUbuntu className="text-3xl inline-block align-middle mr-2 h-12 sm:h-10 text-gray-400"/>Ubuntu</p>
+                        <img src={cu} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/>
+                       
                         
                       </div>
                       <div className="flex justify-center px-1">
@@ -135,7 +136,7 @@ export default function Header() {
 
                         <div>
                           <a
-                            href="/home"
+                            href="/phis"
                             className="h-20 w-full flex justify-center items-center py-2 px-4 rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50"
                           >
                             <div className="grid grid-col-1 items-center">

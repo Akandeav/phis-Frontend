@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie";
 import { isExpired, useJwt } from "react-jwt";
 
 
-const Landing = () => {
+const Content = () => {
     const [isLoggedin, setLog] = useState(false);
     const [cookies] = useCookies('plt')
     useState( () => {
@@ -42,7 +42,9 @@ const Landing = () => {
             <main>
                 <section className="relative w-full h-full py-3 min-h-screen">
                    <Navbarlogin isLoggedin={isLoggedin} setLog={setLog}/>
-                   <Appshome />
+                  <Switch>
+                      <Route path="/phis" component={Home} />
+                  </Switch>
                 </section>
             </main>
         </>
@@ -50,4 +52,4 @@ const Landing = () => {
 
 } 
 
-export default Landing
+export default Content

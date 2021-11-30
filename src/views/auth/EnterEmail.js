@@ -3,7 +3,8 @@ import { BiKey } from 'react-icons/bi'
 import SignInForm from '../../components/Forms/Signin'
 import React from 'react'
 import logo from "../../assets/img/logo.png"
-const Signin = () => {
+import InputEmail from '../../components/Forms/InputEmail'
+const EnterEmail = () => {
     return (
         <>
         <div className="container mx-auto px-4 h-full">
@@ -16,20 +17,12 @@ const Signin = () => {
                 >
                   <img src={logo} alt="" />        
                 </a>
-                <h2 className="font-sans font-bold text-indigo-600 mx-auto text-center text-3xl">Sign In</h2>
+                <h2 className="font-sans font-thin text-xl mt-5 text-indigo-600 mx-auto text-center ">Enter your email address</h2>
             
                 
-                <SignInForm />
-                <div className="mt-3 text-center text-sm">
-                    <a href="/auth/enteremail"><span className="font-medium text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</span></a>
-                  </div>
-                <div className="text-center text-sm ">
-                  <hr className="mt-6 mb-6 border-blueGray-300"></hr>
-                  <span>Don't have an account?</span>
-                  <div className="mt-3 text-sm">
-                    <a href="/auth/signup"><span className="font-medium text-sm text-indigo-600 hover:text-indigo-500">Sign Up</span></a>
-                  </div>
-                </div>
+                <InputEmail />
+                
+                
               </div>
           </div>
         </div>
@@ -37,4 +30,4 @@ const Signin = () => {
       </>
     )
 }
-export default Signin
+export default EnterEmail

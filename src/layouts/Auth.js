@@ -4,7 +4,9 @@ import { Switch, Route, Redirect } from "react-router";
 //components
 
 import FooterSmall from "../components/Footers/FooterSmall";
-import Errorpage from "../views/auth/Errorpage";
+import EnterEmail from "../views/auth/EnterEmail";
+
+import ForgotPwd from "../views/auth/ForgotPwd";
 
 //views
 
@@ -29,7 +31,8 @@ export default function Auth(){
                         <Route path="/auth/signin" exact component={Signin}/>
                         <Route path="/auth/signup"  exact component={Signup} />
                         <Route path="/auth/verify/:id"  exact component={Verify} />
-                        <Route path="/auth/error"  exact component={Errorpage} />
+                        <Route path="/auth/enteremail" exact component={EnterEmail} />
+                        <Route path="/auth/forgotpwd" exact component={ForgotPwd} />
                         {/*<Redirect from="/auth" to="/auth/signin" /> */}
                     </Switch>
                     <FooterSmall  />

@@ -7,6 +7,9 @@ import './index.css';
 // layouts
 import Auth from './layouts/Auth';
 import Landing from './layouts/Landing';
+import Errorpage from './layouts/Errorpage'
+import Content from './layouts/Content';
+
 
 
 
@@ -17,10 +20,11 @@ ReactDOM.render(
       <Route path="/auth" component={Auth} />
 
       {/* add routes without layouts */}
-      <Route path="/" exaxt component={Landing} />
+      <Route path="/" exact component={Landing} />
+      <Route path="/phis"  exact component={Content} />
+      <Route path="*"  component={Errorpage} />
       {/* redirect from first page */}
-      <Redirect from="*" to="/" />
-
+     
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
