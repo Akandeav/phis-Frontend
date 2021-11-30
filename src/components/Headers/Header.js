@@ -1,48 +1,25 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ]
-  }
-  ```
-*/
-
-
-import { Fragment, useState } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { ChevronRightIcon } from '@heroicons/react/solid'
-import { BsCloudyFill, BsGlobe2 } from 'react-icons/bs'
-import { FaMicroscope } from 'react-icons/fa'
-import { GrUbuntu } from 'react-icons/gr'
-import { SiDell, SiCisco } from 'react-icons/si'
-import cu from '../../assets/img/cu-g.png'
-import { useCookies } from 'react-cookie'
-import { isExpired } from 'react-jwt'
-import Navbar from '../Navbar/Navbar'
-
+import { BsGlobe2 } from 'react-icons/bs'
+import { FaMicroscope, FaWarehouse } from 'react-icons/fa'
+import { CgDatabase } from 'react-icons/cg'
+import cu from '../../assets/img/cu.png'
+import ace from '../../assets/img/ace.png'
+import afd from '../../assets/img/afd.png'
+import dstn from '../../assets/img/dstn.png'
+import inr from '../../assets/img/inr.png'
+import wb from '../../assets/img/wb.png'
+import cea from '../../assets/img/mitic.png'
+/*
 const navigation = [
-  /*
+  
   { name: 'Product', href: '#' },
   { name: 'Features', href: '#' },
   { name: 'Marketplace', href: '#' },
   { name: 'Company', href: '#' },
-  */
-]
-
-export default function Header() {
-  const [ cookies ] = useCookies([''])
-  const [token, setToken ] = useState('')
-  const istokenExpired = isExpired(cookies['plt'])
   
+]
+*/
+export default function Header() {
   return (
     <div className="relative overflow-hidden">
       
@@ -87,27 +64,37 @@ export default function Header() {
                     <span className="ml-4 text-sm">Visit our about page</span>
                     <ChevronRightIcon className="ml-2 w-5 h-5 text-gray-500" aria-hidden="true" />
                   </a>
-                  <h1 className="mt-4 text-4xl tracking-tight font-extrabold text-gray-900 sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
+                  <h1 className="mt-4 text-4xl tracking-tight font-extrabold text-gray-900 sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-8xl">
                     
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-indigo-500 md:block">FEDGEN </span>
                   </h1>
                   <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     A Federated Genomic (FEDGEN) cloud infrastructure (with in-memory conputing and 
-                    cloud AI capabilities) towards and informatics based genomic research in Africa.
+                    cloud AI capabilities) towards an informatics based genomic research in Africa.
                   </p>
                   <p className="mt-8 text-sm text-indigo-500 uppercase tracking-wide font-semibold sm:mt-10">Powered by</p>
                   <div className="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
                     <div className="flex flex-wrap items-start justify-between">
-                      <div className="flex justify-center px-1">
-                        <img src={cu} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/>
-                       
-                        
+                      <div className="flex justify-center mx-2">
+                        <img src={cu} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/> 
                       </div>
-                      <div className="flex justify-center px-1">
-                        <SiCisco className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/>
+                      <div className="flex justify-center mx-1">
+                        <img src={ace} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/> 
                       </div>
-                      <div className="flex justify-center px-1">
-                      <SiDell className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/>
+                      <div className="flex justify-center mx-1">
+                        <img src={cea} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/> 
+                      </div>
+                      <div className="flex justify-center mx-1">
+                        <img src={dstn} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/> 
+                      </div>
+                      <div className="flex justify-center mx-1">
+                        <img src={wb} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/> 
+                      </div>
+                      <div className="flex justify-center mx-2">
+                        <img src={inr} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/> 
+                      </div>
+                      <div className="flex justify-center ">
+                        <img src={afd} alt="CU" className="text-3xl inline-block align-middle mr-2 h-12 text-gray-400 sm:h-10 md:text-9xl"/> 
                       </div>
                     </div>
                   </div>
@@ -117,45 +104,53 @@ export default function Header() {
                 <div className="h-auto bg-white shadow-lg sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
                   <div className="px-4 py-8 sm:px-10">
                     <div>
-                      <p className="text-sm text-center font-bold text-gray-700 mb-10">CApIC-ACE APPS</p>
+                      <p className="text-sm text-center font-bold text-gray-700 mb-10">FEDGEN APPS</p>
 
                       <div className="mt-1 grid gap-x-5 gap-y-8 grid-cols-2 ">
-                        <div>
+                        <div className="py-1 h-full w-full rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50">
                           <a
                             href="/"
-                            className="h-20 w-full flex justify-center items-center py-2 px-4 rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50"
                           >
                             <div className="grid grid-col-1 items-center">
                               <span className="sr-only">Cloud</span>
-                              <BsCloudyFill className=" text-3xl mx-auto text-indigo-700 md:text-7xl"/>
-                              <p className="object-none object-bottom">FEDGEN Cloud</p>
+                              <CgDatabase className=" text-3xl mx-auto text-indigo-700 md:text-7xl"/>
+                              <p className="object-none text-center mt-2 object-bottom">FEDGEN Testbed</p>
                             </div>
                           </a>
                           
                         </div>
 
-                        <div>
+                        <div className="py-1 h-full w-full rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50">
                           <a
-                            href="/phis"
-                            className="h-20 w-full flex justify-center items-center py-2 px-4 rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50"
+                            href="/phis" 
                           >
                             <div className="grid grid-col-1 items-center">
                               <span className="sr-only">FEDGEN HealthEdu App</span>
                               <FaMicroscope className="text-3xl mx-auto text-indigo-700 md:text-6xl"/>
-                              <p className="mx-auto object-bottom">FEDGEN HealthEdu App</p>
+                              <p className="mx-auto text-center object-bottom">FEDGEN <br /> HealthEdu App</p>
                             </div>
                           </a>
                           
                         </div>
-                        <div>
+                        <div className="py-1 h-full w-full rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50">
                           <a
-                            href="hhtps://ace.covenantuniversity.edu.ng"
-                            className="h-20 w-full flex justify-center items-center py-2 px-4 rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50"
+                            href="https://ace.covenantuniversity.edu.ng"
                           >
                             <div className="grid grid-col-1 items-center">
                               <span className="sr-only">Web</span>
                               <BsGlobe2 className="text-3xl mx-auto text-indigo-700 md:text-6xl"/>
-                              <p className="object-none object-bottom">CApIC-ACE Website</p>
+                              <p className="object-none text-center mt-2 object-bottom">CApIC-ACE Website</p>
+                            </div>
+                          </a>
+                        </div>
+                        <div className="py-1 h-full w-full rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50">
+                          <a
+                            href="hhtps://ace.covenantuniversity.edu.ng"
+                          >
+                            <div className="grid grid-col-1 items-center">
+                              <span className="sr-only">Web</span>
+                              <FaWarehouse className="text-3xl mx-auto text-indigo-700 md:text-6xl"/>
+                              <p className="object-none text-center object-bottom">Fedgen <br /> Data Center</p>
                             </div>
                           </a>
                         </div>

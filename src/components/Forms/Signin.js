@@ -63,8 +63,9 @@ const SignInForm = () => {
                     }
                     else if (response.ok){
                         response.json().then(data => {
-                            handleClick()
                             setCookie('plt', data.token, { 'path': '/', 'maxAge': 3600});
+                            
+                            handleClick()
                             
                                
                         })
