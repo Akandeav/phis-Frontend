@@ -9,8 +9,9 @@ import axios from "axios"
 import SmallNotification from "../Notification/SmallNotification";
 
 
-const InputEmail = () => {
+const InputEmail = (props) => {
     const [redirect, setRedirect] = useState(false)
+    const [False, setFalse] = useState(false)
     const [error, setError] = useState('')
     const [show, setShow ] = useState(false)
     const [isEmailValid, setValid] = useState(false)
@@ -26,55 +27,64 @@ const InputEmail = () => {
          return error;
 
     }
-    let history = useHistory()
-    function handleClick() {
-        history.push("/");
-      }
+    
     if(redirect){
         return <Redirect to = {{
             pathname: '/',
         }} />
+    
     }
+    
     return (
         <>
-        { show === true && isEmailValid === false &&
+        { show === true && isEmailValid === false && False === false &&
         <button onClick={() => {
             setShow(false)
           }}>
           <SmallNotification status="error" message="Invalid Email" detail="Account not found. Check email and try again" />  
         </button>
          }
-         { show === true && isEmailValid === true &&
+         { show === true && isEmailValid === true && False === false &&
         <button onClick={() => {
             setShow(false)
           }}>
           <SmallNotification status="ok" message="Success" detail="Password reset link has been sent to your email" />  
         </button>
          }
+         { show === true && False === true &&
+        <button onClick={() => {
+            setShow(false)
+          }}>
+          <SmallNotification status="error" message="Invalid Request" detail="User already verified" />  
+        </button>
+         }
         <Formik
             initialValues={{
                 email: '',
-                password: '',
+            
             }}
             
             onSubmit={async (values) => {
-                fetch('http://localhost:8000/auth/email-query', {
+                fetch('http://localhost:8000/auth/email.query', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(values, null, 2)
                 })
                 .then(function (response){
                     if (!response.ok){
-                       
+                       return <Redirect to={"/error"} />
                     }
                     else if (response.ok){
                         response.json().then(data => {
-                            if (data.message === 'no'){
+                            if (data.message === 'no' && data.verified === false){
                             setValid(true)
                             setShow(true)
-                            axios.post('http://localhost:8000/auth/pwdlink', {
-                                email: values
+                            axios.post(props.link, {
+                                "email": values['email']
                             })
+                            }else if(data.message === 'no' && data.verified === true){
+                                setFalse(true)
+                                setShow(true)
                             }
                             else {
                                 setValid(false)

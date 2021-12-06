@@ -1,10 +1,29 @@
+/*
+  This example requires Tailwind CSS v2.0+ 
+  
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+*/
 import { Fragment } from 'react'
 import { Menu, Popover, Transition } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { useCookies } from 'react-cookie'
 import { isExpired } from 'react-jwt'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
+import { Redirect } from 'react-router'
 import logo from "../../assets/img/logo.png"
+
 const user = {
   name: 'Chelsea Hagon',
   email: 'chelseahagon@example.com',
@@ -12,64 +31,82 @@ const user = {
     'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  /*
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Calendar', href: '#', current: false },
   { name: 'Teams', href: '#', current: false },
   { name: 'Directory', href: '#', current: false },
-  */
 ]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
-const popoverNavigation = [
-  { name: 'Sign up', href: '/auth/signup' },
-  { name: 'Sign in', href: '/auth/signin' },
+
+const publicNavigation = [
+  { name: 'Sign Up', href: '/auth/signup' },
+  { name: 'Sign In', href: '/auth/signin' },
 ]
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
-  const [ cookies ] = useCookies([''])
+export default function Example() {
+  const [ cookies, removeCookie ] = useCookies([''])
   const  istokenExpired  = isExpired(cookies['plt'])
-
-
+  const logout = async (e) => {
+    await fetch('http://localhost:8000/auth/logout', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include'
+        });
+  };
+  const userNavigation = [
+    { name: 'Your Profile', href: '#' },
+    { name: 'Settings', href: '#', },
+    
+  ]
+  
   return (
     <>
-      {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
+      {cookies['plt'] && !istokenExpired &&
+      /*Logged In*/
       <Popover
         as="header"
         className={({ open }) =>
           classNames(
             open ? 'fixed inset-0 z-40 overflow-y-auto' : '',
-            ' lg:static lg:overflow-y-visible'
+            'bg-white shadow-sm lg:static lg:overflow-y-visible'
           )
         }
       >
         {({ open }) => (
           <>
-            <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
                 <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
                   <div className="flex-shrink-0 flex items-center">
                     <a href="/">
                       <img
-                        className="block h-12 w-auto"
+                        className="block h-8 w-auto"
                         src={logo}
-                        alt="Workflow"
+                        alt="PHIS"
                       />
                     </a>
-                    
                   </div>
                 </div>
                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                     <div className="w-full">
-                      
-                      
+                      <label htmlFor="search" className="sr-only">
+                        Search
+                      </label>
+                      <div className="relative">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                          <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        </div>
+                        <input
+                          id="search"
+                          name="search"
+                          className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          placeholder="Search"
+                          type="search"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -84,23 +121,6 @@ export default function Navbar() {
                     )}
                   </Popover.Button>
                 </div>
-                {!cookies['plt'] && istokenExpired && 
-                <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
-                 <a
-                    href="/auth/signup"
-                    className="ml-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-lg text-indigo-600 hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-                  >
-                    Sign Up
-                  </a>
-                  <a
-                    href="/auth/signin"
-                    className="ml-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Sign In
-                  </a>
-                </div>
-                }
-                {cookies['plt'] && !istokenExpired &&
                 <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
                   <a
                     href="/"
@@ -133,16 +153,29 @@ export default function Navbar() {
                             {({ active }) => (
                               <a
                                 href={item.href}
+                                onClick={item.onClick}
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
                                   'block py-2 px-4 text-sm text-gray-700'
                                 )}
+                                
                               >
                                 {item.name}
                               </a>
                             )}
+                            
                           </Menu.Item>
                         ))}
+                        <a
+                                href="/"
+                                onClick={logout}
+                                className="hover:bg-gray-100
+                                  block py-2 px-4 text-sm text-gray-700
+                                "
+                                
+                              >
+                                Log out
+                              </a>
                       </Menu.Items>
                     </Transition>
                   </Menu>
@@ -154,9 +187,7 @@ export default function Navbar() {
                     New Project
                   </a>
                 </div>
-                }
               </div>
-                                
             </div>
 
             <Popover.Panel as="nav" className="lg:hidden" aria-label="Global">
@@ -175,23 +206,6 @@ export default function Navbar() {
                   </a>
                 ))}
               </div>
-              {!cookies['plt'] && istokenExpired && 
-                <div className="border-t border-gray-200 pt-4 pb-3">
-                
-                <div className="mt-3 max-w-3xl mx-auto px-2 space-y-1 sm:px-4">
-                  {popoverNavigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
-              }
-              {cookies['plt'] && !istokenExpired &&
               <div className="border-t border-gray-200 pt-4 pb-3">
                 <div className="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
                   <div className="flex-shrink-0">
@@ -214,6 +228,124 @@ export default function Navbar() {
                     <a
                       key={item.name}
                       href={item.href}
+                      onClick={item.onClick}
+                      className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                  <a
+                      key="signout"
+                      href="/"
+                      onClick={logout}
+                      className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                    >
+                      Log out
+                    </a>
+                </div>
+              </div>
+            </Popover.Panel>
+          </>
+        )}
+      </Popover>}
+      {/*Logged out*/}
+      {!cookies['plt'] && istokenExpired &&
+      <Popover
+        as="header"
+        className={({ open }) =>
+          classNames(
+            open ? 'fixed inset-0 z-40 overflow-y-auto' : '',
+            'bg-white shadow-sm lg:static lg:overflow-y-visible'
+          )
+        }
+      >
+        {({ open }) => (
+          <>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
+                <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
+                  <div className="flex-shrink-0 flex items-center">
+                    <a href="/">
+                      <img
+                        className="block h-8 w-auto"
+                        src={logo}
+                        alt="PHIS"
+                      />
+                    </a>
+                  </div>
+                </div>
+                <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
+                  <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+                    <div className="w-full">
+                      <label htmlFor="search" className="sr-only">
+                        Search
+                      </label>
+                      <div className="relative">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                          <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        </div>
+                        <input
+                          id="search"
+                          name="search"
+                          className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          placeholder="Search"
+                          type="search"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
+                  {/* Mobile menu button */}
+                  <Popover.Button className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                    <span className="sr-only">Open menu</span>
+                    {open ? (
+                      <XIcon className="block h-6 w-6" aria-hidden="true" />
+                    ) : (
+                      <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                    )}
+                  </Popover.Button>
+                </div>
+                <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
+                <a
+                    href="/auth/signup"
+                    className="ml-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-lg text-indigo-600 bg-white hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                  Sign Up
+                </a>
+                <a
+                    href="/auth/signin"
+                    className="ml-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Sign In
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <Popover.Panel as="nav" className="lg:hidden" aria-label="Global">
+              <div className="max-w-3xl mx-auto px-2 pt-2 pb-3 space-y-1 sm:px-4">
+                {navigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    aria-current={item.current ? 'page' : undefined}
+                    className={classNames(
+                      item.current ? 'bg-gray-100 text-gray-900' : 'hover:bg-gray-50',
+                      'block rounded-md py-2 px-3 text-base font-medium'
+                    )}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+              <div className="border-t border-gray-200 pt-4 pb-3">
+                
+                <div className="mt-3 max-w-3xl mx-auto px-2 space-y-1 sm:px-4">
+                  {publicNavigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
                       className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                     >
                       {item.name}
@@ -221,11 +353,10 @@ export default function Navbar() {
                   ))}
                 </div>
               </div>
-              }
             </Popover.Panel>
           </>
         )}
-      </Popover>
+      </Popover>}
     </>
   )
 }

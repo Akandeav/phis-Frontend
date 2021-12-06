@@ -3,41 +3,25 @@ import React from "react"
 import { useState } from "react"
 import { Redirect, useParams } from "react-router"
 import logo from "../../assets/img/logo.png"
-import { useJwt } from "react-jwt"
-const Verify = () => {
-    const [ redirect, setRedirect ] = useState(false)
-    const [ expired, setExpired ] = useState(false)
-    const [ errorredirect, setErrorRedirect ] = useState(false)
-    const [error, setError ] = useState('')
-    const {id} = useParams()
-    const { isExpired } = useJwt(id)
-    
-    if(isExpired){
-        return <Redirect to={'/expired'} />
-    }
-    if (id){
-        axios.post('http://localhost:8000/auth/verify.email', {
-            "B": id
-        })
-        .then(function(response){
-            if (response.data.ok === true){
-                setRedirect(true)
-            } else if(response.data.ok === false){
-                setExpired(true)
-            }else if (!response.ok){
-                setErrorRedirect(true)
 
+const Signout= () => {
+    const [ redirect, setRedirect ] = useState(false)
+    const [ serror, setServer ] = useState(false)
+    if (true){
+        axios.post('http://localhost:8000/auth/logout')
+        .then(function(response){
+            if (response.data.message === "Logged out!"){
+                setRedirect(true)
+            } else if(!response.ok){
+                setServer(true)
             }
         })
     }
     if (redirect){
-        return <Redirect to={'/auth/signin'} />
+        return <Redirect to={'/'} />
     }
-    if (errorredirect){
+    if (serror){
         return <Redirect to={'/servererror'} />
-    }
-    if (expired){
-        return <Redirect to={'/expired'} />
     }
     
     return (
@@ -52,7 +36,7 @@ const Verify = () => {
                     >
                         <img src={logo} alt="" />        
                     </a>
-                    <p>Please wait while your email is Verified</p>
+                    <p>Logged out!</p>
                     
                 </div>
 
@@ -63,4 +47,4 @@ const Verify = () => {
     )
 
 }
-export default Verify
+export default Signout

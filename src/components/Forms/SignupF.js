@@ -35,7 +35,7 @@ const SignUpForm = () => {
           } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
             setError('Invalid email address');
           }else if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-               axios.post('http://localhost:8000/auth/email-query', {
+               axios.post('http://localhost:8000/auth/email.query', {
                    "email": value,
                    
                })

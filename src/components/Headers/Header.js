@@ -145,7 +145,7 @@ export default function Header() {
                         </div>
                         <div className="py-1 h-full w-full rounded-md  bg-white text-sm font-medium text-gray-500 hover:bg-indigo-50">
                           <a
-                            href="hhtps://ace.covenantuniversity.edu.ng"
+                            href="https://ace.covenantuniversity.edu.ng"
                           >
                             <div className="grid grid-col-1 items-center">
                               <span className="sr-only">Web</span>

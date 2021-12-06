@@ -9,6 +9,8 @@ import Auth from './layouts/Auth';
 import Landing from './layouts/Landing';
 import Errorpage from './layouts/Errorpage'
 import Content from './layouts/Content';
+import ExpiredLink from './layouts/ExpiredLink';
+import ServerError from './layouts/ServerError';
 
 
 
@@ -21,7 +23,10 @@ ReactDOM.render(
 
       {/* add routes without layouts */}
       <Route path="/" exact component={Landing} />
-      <Route path="/phis"  exact component={Content} />
+      <Route path="/phis"   component={Content} />
+      <Route path="/error"  component={Errorpage} />
+      <Route path="/servererror"  component={ServerError} />
+      <Route path="/expired"  component={ExpiredLink} />
       <Route path="*"  component={Errorpage} />
       {/* redirect from first page */}
      

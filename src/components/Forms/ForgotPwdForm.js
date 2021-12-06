@@ -9,32 +9,25 @@ import axios from "axios"
 import SmallNotification from "../Notification/SmallNotification";
 
 
-const ForgotPwdForm = () => {
+const ForgotPwdForm = (props) => {
     const [redirect, setRedirect] = useState(false)
-    const [error, setError] = useState('')
+    const [error, setError] = useState(false)
     const [show, setShow ] = useState(false)
-    const [token, setToken] = useState('')
-    const { decodedToken, isExpired } = useJwt(token)
-    const [ cookies, setCookie, removeCookie ] = useCookies(['plt']);
-    function email(value){
-        if (!value) {
-            setError('*Required');
-          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-            setError('Invalid email address');
-          }else {
-            setError('')
-          }
-         return error;
-
+    const token = props.token
+    const { isExpired } = useJwt(token)
+    
+    if(isExpired){
+        return <Redirect to={'/expired'} />
     }
-    let history = useHistory()
-    function handleClick() {
-        history.push("/");
-      }
+    
+    
     if(redirect){
         return <Redirect to = {{
-            pathname: '/',
+            pathname: '/auth/signin',
         }} />
+    }
+    if(error){
+        return <Redirect to={'/error'} />
     }
     return (
         <>
@@ -42,34 +35,28 @@ const ForgotPwdForm = () => {
         <button onClick={() => {
             setShow(false)
           }}>
-          <SmallNotification status="error" message="Invalid Login" detail="Incorrect email or password" />  
+          <SmallNotification status="ok" message="Success! Password changed" detail="Please wait...Redirecting" />  
         </button>
          }
         <Formik
             initialValues={{
-                email: '',
                 password: '',
             }}
             
-            onSubmit={async (values) => {
-                fetch('http://localhost:8000/auth/signin', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(values, null, 2)
+            onSubmit={(values) => {
+                axios.post('http://localhost:8000/auth/forgot.password',{
+                    "password": values['password'],
+                    "id": token,
                 })
-                .then(function (response){
-                    if (!response.ok){
+                .then(function(response){
+                    if (response.ok){
                         setShow(true)
+                        setRedirect(true)
+                    }else if(!response.ok){
+                        setError(true)
                     }
-                    else if (response.ok){
-                        response.json().then(data => {
-                            handleClick()
-                            setCookie('plt', data.token, { 'path': '/', 'maxAge': 3600});
-                            
-                               
-                        })
-                    }   
-                })  
+                })
+                  
             }
                 
             }
@@ -99,7 +86,7 @@ const ForgotPwdForm = () => {
                     <button type="submit" 
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     disabled={isSubmitting}>
-                        Sign In
+                       Submit
                     </button>
                 </Form>
             )}

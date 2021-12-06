@@ -41,7 +41,7 @@ const Landing = () => {
         <>
             <main>
                 <section className="relative w-full h-full py-3 min-h-screen">
-                   <Navbarlogin isLoggedin={isLoggedin} setLog={setLog}/>
+                   <Navbar/>
                    <Appshome />
                 </section>
             </main>

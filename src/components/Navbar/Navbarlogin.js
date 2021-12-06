@@ -5,6 +5,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { useCookies } from 'react-cookie'
 import { isExpired, useJwt } from 'react-jwt'
 import logo from "../../assets/img/logo.png"
+
 const user = {
   name: 'Chelsea Hagon',
   email: 'chelseahagon@example.com',
@@ -323,7 +324,7 @@ export const Navbarlogin = (props) => {
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
         });
-        props.setLog('');
+        props.setLog(false);
     };
    
     var Nav;

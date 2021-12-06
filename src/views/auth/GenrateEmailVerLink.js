@@ -4,7 +4,7 @@ import SignInForm from '../../components/Forms/Signin'
 import React from 'react'
 import logo from "../../assets/img/logo.png"
 import InputEmail from '../../components/Forms/InputEmail'
-const EnterEmail = () => {
+const EmailLink = () => {
     return (
         <>
         <div className="container mx-auto px-4 h-full">
@@ -17,10 +17,10 @@ const EnterEmail = () => {
                 >
                   <img src={logo} alt="" />        
                 </a>
-                <h2 className="font-sans font-thin text-xl mt-5 text-indigo-600 mx-auto text-center ">Forgot Password</h2>
+                <h2 className="font-sans font-thin text-xl mt-5 text-indigo-600 mx-auto text-center ">Email Verification</h2>
             
                 
-                <InputEmail link="http://localhost:8000/auth/forgot.password.link"/>
+                <InputEmail link="http://localhost:8000/auth/generate.email.link"/>
                 
                 
               </div>
@@ -30,4 +30,4 @@ const EnterEmail = () => {
       </>
     )
 }
-export default EnterEmail
+export default EmailLink

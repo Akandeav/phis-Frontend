@@ -41,7 +41,7 @@ const Content = () => {
         <>
             <main>
                 <section className="relative w-full h-full py-3 min-h-screen">
-                   <Navbarlogin isLoggedin={isLoggedin} setLog={setLog}/>
+                   <Navbar/>
                   <Switch>
                       <Route path="/phis" component={Home} />
                   </Switch>
